@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5a1f33">
+<title>For My Jaanu ♥</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{--wine:#7a2a45;--rose:#c76b83;--ink:#3b2a4a;--bg1:#f6d9df;--bg2:#ecc3cd;--cap:#7a2a45;--hand:"Caveat","Segoe Script","Bradley Hand",cursive;--serif:"Cormorant Garamond",Georgia,serif}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#3a1626;--bg2:#220b16;--cap:#f1c9d3}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;overflow:hidden;overscroll-behavior:none}
+body{background:radial-gradient(120% 90% at 50% 0,var(--bg1),var(--bg2));font-family:var(--serif);color:var(--ink);user-select:none;-webkit-user-select:none}
+.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.hearts i{position:absolute;bottom:-40px;font-style:normal;color:var(--rose);opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translate3d(0,0,0) scale(.6);opacity:0}15%{opacity:.35}100%{transform:translate3d(var(--dx),-110vh,0) scale(1.1);opacity:0}}
+
+/* envelope scene */
+.scene{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;padding-top:max(24px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom))}
+.intro{text-align:center;color:var(--cap);margin-bottom:34px;transition:opacity .5s}
+.intro small{font:11px/1 Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;opacity:.75}
+.intro h1{font:italic 500 clamp(30px,8vw,42px)/1.15 var(--serif);margin:12px 0 4px}
+.intro p{font:italic 16px var(--serif);margin:0;opacity:.8}
+.env{width:min(360px,86vw);aspect-ratio:1.5;position:relative;perspective:900px;cursor:pointer;outline:none;animation:float 4s ease-in-out infinite;transition:transform .9s cubic-bezier(.5,0,.3,1),opacity .6s}
+.env:focus-visible{outline:3px solid var(--rose);outline-offset:8px;border-radius:8px}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}}
+.env>div{position:absolute;inset:0}
+.back{background:#e3b4a6;border-radius:6px;box-shadow:0 24px 40px rgba(60,20,35,.3)}
+.card{left:5%;right:5%;top:6%;bottom:4%;background:#fffaf2;border-radius:3px;display:flex;align-items:center;justify-content:center;font:400 36px "Great Vibes",var(--hand);color:var(--wine);transition:transform 1s cubic-bezier(.3,.8,.3,1) .7s;z-index:1;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.front{z-index:3;border-radius:6px;background:linear-gradient(160deg,#f2cdc2,#e0a99b);clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%)}
+.addr{z-index:4;inset:auto 0 12% 0!important;text-align:center;font:600 24px var(--hand);color:#6b3a4b;transform:rotate(-2deg)}
+.addr span{display:block;font:11px Arial,sans-serif;letter-spacing:2px;opacity:.6;margin-bottom:2px}
+.flap{z-index:5;transform-origin:top center;background:linear-gradient(170deg,#f7d9d0,#e3b0a2);clip-path:polygon(0 0,100% 0,50% 62%);transition:transform .8s cubic-bezier(.4,0,.2,1) .35s,z-index 0s .75s;backface-visibility:hidden}
+.seal{z-index:6;left:50%!important;top:55%!important;right:auto!important;bottom:auto!important;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;display:grid;place-items:center;color:#ffe3e8;font-size:24px;background:radial-gradient(circle at 35% 30%,#d4566f,#8f1f3d 75%);box-shadow:0 3px 8px rgba(0,0,0,.35),inset 0 0 0 3px rgba(255,255,255,.12);animation:beat 2s ease-in-out infinite;transition:transform .45s,opacity .35s}
+@keyframes beat{0%,100%{scale:1}15%{scale:1.1}30%{scale:1}}
+.tap{margin-top:30px;color:var(--cap);font:12px Arial,sans-serif;letter-spacing:2.5px;text-transform:uppercase;text-align:center;animation:pulse 2s ease-in-out infinite;transition:opacity .3s}
+@keyframes pulse{50%{opacity:.45}}
+.scene.go .seal{transform:scale(1.4) rotate(14deg);opacity:0;animation:none}
+.scene.go .flap{transform:rotateX(180deg);z-index:0}
+.scene.go .card{transform:translateY(-62%)}
+.scene.go .tap,.scene.go .intro{opacity:0}
+.scene.go .env{animation:none}
+.scene.gone .env{transform:translateY(60px) scale(.9);opacity:0}
+.scene.out{opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s .5s}
+
+/* book */
+.book{position:fixed;inset:0;z-index:1;display:none;perspective:1400px;touch-action:pan-y;padding:max(14px,env(safe-area-inset-top)) 12px calc(66px + env(safe-area-inset-bottom))}
+.book.show{display:block;animation:bookin .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes bookin{from{opacity:0;transform:translateY(40px) scale(.96)}to{opacity:1;transform:none}}
+.stack{position:relative;width:100%;max-width:560px;height:100%;margin:0 auto;transform-style:preserve-3d}
+.pg{--lh:30px;position:absolute;inset:0;transform-origin:left center;backface-visibility:hidden;transition:transform 1s cubic-bezier(.65,0,.25,1),opacity .7s,filter .7s;will-change:transform}
+.pg.before{transform:rotateY(-115deg) translateX(-6%);opacity:0;z-index:4;pointer-events:none;filter:brightness(.8)}
+.pg.cur{transform:none;opacity:1;z-index:3}
+.pg.nxt{transform:translate3d(10px,10px,-40px) rotate(1.2deg);opacity:.85;z-index:2;filter:brightness(.93)}
+.pg.far{transform:translate3d(18px,18px,-80px) rotate(2.4deg);opacity:0;z-index:1}
+.sc{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:var(--lh) 20px calc(var(--lh)*2) 42px;border-radius:3px;font:500 21px/var(--lh) var(--hand);color:var(--ink);background:
+ linear-gradient(90deg,transparent 29px,rgba(214,90,110,.45) 29px 31px,transparent 31px) local,
+ repeating-linear-gradient(transparent 0 29px,rgba(110,140,190,.28) 29px 30px) local,
+ radial-gradient(120% 60% at 50% 0,#fffdf6,#f8efdc) local;
+ box-shadow:0 1px 1px rgba(0,0,0,.1),0 16px 36px rgba(40,10,25,.3)}
+.sc::-webkit-scrollbar{display:none}
+.head{text-align:center;margin:0 0 var(--lh)}
+.head .orn{color:var(--rose);font-size:18px;letter-spacing:8px;line-height:var(--lh)}
+.head h2{margin:0;font:400 clamp(46px,15vw,62px)/60px "Great Vibes","Segoe Script",cursive;color:var(--wine);background:linear-gradient(100deg,#7a2a45 0%,#c76b83 45%,#7a2a45 75%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 2px rgba(122,42,69,.18));padding:0 4px}
+.head em{display:block;font:600 17px/var(--lh) var(--hand);color:#a0677a}
+.sc p{margin:0 0 var(--lh);overflow-wrap:break-word}
+.sc ol{margin:0 0 var(--lh);padding-left:26px}
+.sc li{padding-left:4px}
+.sc li::marker{color:var(--rose);font-weight:600}
+.prayer{color:var(--wine)}
+.closing{font-size:30px;color:var(--wine)}
+.sign{text-align:right;color:var(--rose);transform:rotate(-3deg);line-height:1.3}
+.sign .so{display:block;font-size:22px}
+.sign .nm{display:inline-block;font-size:27px;padding-bottom:6px;border-bottom:2px solid var(--rose);clip-path:inset(-4px 100% -10px 0);transition:clip-path 2.2s ease}
+.cur .sign .nm{clip-path:inset(-4px -6px -10px 0);transition-delay:1.8s}
+.foot{text-align:center;margin-top:24px;color:#c28a96;letter-spacing:8px;font-size:16px}
+.again{display:block;margin:22px auto 0;font:600 22px var(--hand);color:var(--wine);background:none;border:1.5px dashed var(--rose);border-radius:24px;padding:6px 20px;cursor:pointer}
+.pn{position:absolute;right:16px;bottom:8px;font:12px Arial,sans-serif;color:#b1848d;z-index:2;pointer-events:none}
+.rv{opacity:0;transform:translateY(14px);filter:blur(2px);transition:opacity .2s,transform .2s,filter .2s}
+.cur .rv{opacity:1;transform:none;filter:none;transition:opacity .9s ease,transform .9s ease,filter .9s ease;transition-delay:calc(.55s + var(--i,0)*.28s)}
+
+/* controls */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:5;display:none;align-items:center;justify-content:center;gap:14px;padding:10px 12px calc(14px + env(safe-area-inset-bottom))}
+.nav.show{display:flex}
+.nav button{border:0;background:none;color:var(--cap);font:24px/1 Georgia,serif;width:44px;height:44px;border-radius:50%;cursor:pointer;opacity:.85}
+.nav button:disabled{opacity:.2}
+.dots{display:flex;gap:9px}
+.dots button{width:10px;height:10px;padding:0;border-radius:50%;background:var(--cap);opacity:.28;transition:opacity .3s,transform .3s}
+.dots button.on{opacity:1;transform:scale(1.4)}
+.hint{position:fixed;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom));z-index:5;text-align:center;font:11px Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--cap);pointer-events:none;animation:nudge 1.6s ease-in-out infinite;transition:opacity .5s}
+.hint.hide{opacity:0}
+@keyframes nudge{50%{transform:translateX(8px)}}
+.burst{position:fixed;left:50%;bottom:30%;z-index:6;pointer-events:none;color:var(--rose);animation:burst 2.2s ease-out forwards}
+@keyframes burst{to{transform:translate3d(var(--x),var(--y),0) scale(1.3);opacity:0}}
+@media(min-width:600px){.pg{--lh:36px}.sc{font-size:25px;padding-left:56px;background-size:auto}}
+@media(max-width:360px){.sc{font-size:19px;padding-left:38px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}.sign .nm{clip-path:none}}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts" aria-hidden="true"></div>
+
+<main class="scene" id="scene">
+  <header class="intro"><small>A little surprise for you</small><h1>Someone loves you</h1><p>A letter, sealed with all my love</p></header>
+  <div class="env" id="env" role="button" tabindex="0" aria-label="Open your love letter" aria-expanded="false">
+    <div class="back"></div><div class="card">For My Jaanu ♡</div><div class="front"></div>
+    <div class="addr"><span>TO MY DEAREST</span>Jaanu ♥</div><div class="flap"></div><div class="seal">♥</div>
+  </div>
+  <div class="tap">Tap the seal to open</div>
+</main>
+
+<div class="book" id="book" aria-label="Love letter">
+ <div class="stack" id="stack">
+  <section class="pg"><div class="sc">
+    <header class="head rv" style="--i:0"><div class="orn">♡ ✦ ♡</div><h2>For My Jaanu</h2><em>a little piece of my heart, just for you</em></header>
+    <p class="rv" style="--i:1">Hi babe, kaisi ho? I hope aap bilkul theek ho.</p>
+    <p class="rv" style="--i:2">Babe, pehle mujhe lagta tha ki sacha pyaar sirf filmon ki ek kahani hai. Jab bhi main sunta tha ki kisi ne pyaar mein sab kuch qurbaan kar diya, toh mujhe lagta tha ki mujhe itna chahne wala meri kismat mein kabhi nahi hoga. Main hamesha is darr mein rehta tha ki agar kisi ko mujhse pyaar ho bhi gaya, toh mujhse behtar koi milte hi woh mujhe chhod dega.</p>
+    <p class="rv" style="--i:3">Par babe, aapne aakar sirf meri yeh soch hi nahi badli, balki meri poori hasti ko badal diya hai.</p>
+  </div></section>
+  <section class="pg"><div class="sc">
+    <p class="rv" style="--i:0">Sach kahun toh maine khwab mein bhi nahi socha tha ki aapke jaisi itni khoobsurat aur pyaari ladki mujhe kabhi apnayegi. Jab hum pehli baar mile the, tab bhi mujhe lagta tha ki aap meri pahunch se bahut door ho—aur sach toh yeh hai ki aap aaj bhi mere liye kisi farishte se kam nahi ho. Phir bhi aapne mujhe chuna, aur yeh mere liye meri poori duniya hai. Mujhse anjaane mein bahut galtiyan hui hain, par mera irada kabhi aapka dil dukhane ka nahi raha. Meri har saans sirf aapke saath rehne ki dua karti hai.</p>
+    <p class="rv" style="--i:1">Aapke aane se meri andheri duniya mein ek noor sa aa gaya hai, babe. Mujhe har pal lagta hai ki sirf aapke liye aur aapki wajah se hi main zindagi mein kuch bada kar sakta hoon. Khud ke liye shayad main kuch na kar paun, par aapki khushi ke liye main poori duniya se lad sakta hoon. Main bas itna chahta hoon ki aapka pyaar mujh par hamesha bana rahe, aap mere saath hamesha muskurati raho, aur meri har chhoti-badi koshish par fakhr karo.</p>
+  </div></section>
+  <section class="pg"><div class="sc">
+    <p class="rv" style="--i:0">Babe, aap mere liye ek masoom, nanhi si jaan ho jise main har gham se bacha kar rakhna chahta hoon. Aap meri rooh ka sabse nazuk hissa ho; aapki muskurahat se meri saansein chalti hain, aur aapki aankhon mein ek aansu bhi aa jaye toh mera dam ghutne lagta hai. Aap mere jeene ki wajah ho, babe.</p>
+    <p class="rv" style="--i:1">Main Allah se sirf 3 cheezein maangta hoon:</p>
+    <ol class="rv" style="--i:2"><li>Aapki hamesha ki khushi</li><li>Aapki hifazat</li><li>Har janam mein aapka saath</li></ol>
+    <p class="rv prayer" style="--i:3">Isse zyada maine kabhi kuch nahi maanga, aur na hi kabhi Allah se maangunga 🤲🏻. Sirf yeh 3 cheezein mil jayein toh meri zindagi mukammal ho jayegi.</p>
+  </div></section>
+  <section class="pg"><div class="sc">
+    <p class="rv" style="--i:0">I love you endlessly, babe. Dil mein toh bahut kuch hai likhne ko, par aapke waqt ka khayal rakhte hue bas itna hi kahunga.</p>
+    <p class="rv closing" style="--i:1">I love you, jaanu.</p>
+    <div class="sign rv" style="--i:2"><span class="so">With all my love,</span><span class="nm">Forever Yours, I Love You ♥</span></div>
+    <div class="foot rv" style="--i:3">♥ ♥ ♥</div>
+    <button class="again rv" id="again" style="--i:4">read again ♡</button>
+  </div></section>
+ </div>
+</div>
+<div class="hint" id="hint">Tap or swipe ›</div>
+<nav class="nav" id="nav"><button id="prev" aria-label="Previous page">‹</button><div class="dots" id="dots"></div><button id="next" aria-label="Next page">›</button></nav>
+
+<script>
+(()=>{
+  const $=id=>document.getElementById(id);
+  const scene=$('scene'),env=$('env'),book=$('book'),nav=$('nav'),hint=$('hint'),hearts=$('hearts');
+  const pages=[...document.querySelectorAll('.pg')],dots=$('dots'),prev=$('prev'),next=$('next');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let i=0,opened=false,moved=false;
+  pages.forEach((p,n)=>{
+    const d=document.createElement('button');d.setAttribute('aria-label','Page '+(n+1));
+    d.onclick=e=>{e.stopPropagation();go(n)};dots.appendChild(d);
+    const c=document.createElement('div');c.className='pn';c.textContent=(n+1)+' / '+pages.length;p.appendChild(c);
+  });
+  function render(){
+    pages.forEach((p,n)=>{p.className='pg '+(n<i?'before':n===i?'cur':n===i+1?'nxt':'far');p.setAttribute('aria-hidden',n!==i);});
+    [...dots.children].forEach((d,n)=>d.classList.toggle('on',n===i));
+    prev.disabled=i===0;next.disabled=i===pages.length-1;
+    pages[i].querySelector('.sc').scrollTop=0;
+    if(i===pages.length-1)burst();
+  }
+  function go(n){
+    n=Math.max(0,Math.min(pages.length-1,n));if(n===i)return;
+    i=n;moved=true;hint.classList.add('hide');
+    try{navigator.vibrate&&navigator.vibrate(10)}catch(e){}
+    render();
+  }
+  function burst(){
+    if(reduce)return;
+    for(let k=0;k<14;k++){const h=document.createElement('i');h.className='burst';h.textContent=k%2?'♥':'♡';
+      h.style.cssText=`font-size:${14+k%4*6}px;margin-left:${(k%5-2)*14}px;animation-delay:${k*.07+.9}s;--x:${(k-7)*22}px;--y:${-120-k%5*40}px;opacity:0;font-style:normal`;
+      h.addEventListener('animationend',()=>h.remove());document.body.appendChild(h);}
+  }
+  function floatHearts(){
+    if(reduce)return;
+    for(let k=0;k<8;k++){const h=document.createElement('i');h.textContent=k%2?'♥':'♡';
+      h.style.cssText=`left:${8+k*12}%;font-size:${14+(k%3)*8}px;animation-duration:${9+(k%4)*2}s;animation-delay:${k*1.3}s;--dx:${(k%2?1:-1)*(20+k*4)}px`;hearts.appendChild(h);}
+  }
+  let sx=0,sy=0;
+  book.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY});
+  book.addEventListener('pointerup',e=>{
+    if(e.target.closest('button'))return;
+    const dx=e.clientX-sx,dy=e.clientY-sy;
+    if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3){go(i+(dx<0?1:-1))}
+    else if(Math.abs(dx)<10&&Math.abs(dy)<10){go(e.clientX<innerWidth*.3?i-1:i+1)}
+  });
+  prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+  $('again').onclick=e=>{e.stopPropagation();go(0)};
+  addEventListener('keydown',e=>{if(!opened)return;if(e.key==='ArrowRight'||e.key===' ')go(i+1);if(e.key==='ArrowLeft')go(i-1)});
+  function open(){
+    if(opened)return;opened=true;env.setAttribute('aria-expanded','true');
+    try{navigator.vibrate&&navigator.vibrate(18)}catch(e){}
+    scene.classList.add('go');
+    setTimeout(()=>scene.classList.add('gone'),reduce?0:1900);
+    setTimeout(()=>{scene.classList.add('out');book.classList.add('show');nav.classList.add('show');hint.style.display='block';render();floatHearts()},reduce?0:2300);
+  }
+  hint.style.display='none';
+  env.addEventListener('click',open);
+  env.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+})();
+</script>
+</body>
+</html>
